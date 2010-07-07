@@ -1,0 +1,6 @@
+; $Id$
+name = DownloadFile
+description = "Module direct download files or images."
+dependencies[] = filefield
+version = VERSION
+core = 6.x
