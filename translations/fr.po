@@ -45,7 +45,7 @@ msgstr "Mo"
 
 #: download_file.formatter.inc:254
 msgid "Mega Bytes"
-msgstr "M�ga octets"
+msgstr "Méga octets"
 
 #: download_file.formatter.inc:255
 #: download_file.module:188
@@ -63,7 +63,7 @@ msgstr "To"
 
 #: download_file.formatter.inc:256
 msgid "Tera Bytes"
-msgstr "T�ra octets"
+msgstr "Téra octets"
 
 #: download_file.formatter.inc:257
 #: download_file.module:188
@@ -72,50 +72,50 @@ msgstr "Po"
 
 #: download_file.formatter.inc:257
 msgid "Peta Bytes"
-msgstr "P�ta octets"
+msgstr "Péta octets"
 
 #: download_file.module:151
 msgid "Direct download file"
-msgstr "T�l�chargement direct du fichier"
+msgstr "Téléchargement direct du fichier"
 
 #: download_file.module:154
 msgid "Displays a link to direct download the file."
-msgstr "Afficher un lien pour le t�l�chargement direct du fichier."
+msgstr "Afficher un lien pour le téléchargement direct du fichier."
 
 #: download_file.module:157
 msgid "Direct download file with the type icon"
-msgstr "T�l�chargement direct du fichier avec l'ic�ne du type"
+msgstr "Téléchargement direct du fichier avec l'icône du type"
 
 #: download_file.module:160
 msgid "Displays a link to direct download the file with the type icon."
-msgstr "Afficher un lien pour le t�l�chargement direct du fichier avec l'ic�ne du type."
+msgstr "Afficher un lien pour le téléchargement direct du fichier avec l'icône du type."
 
 #: download_file.module:163
 msgid "Direct download file accessible"
-msgstr "T�l�chargement direct accessible du fichier"
+msgstr "Téléchargement direct accessible du fichier"
 
 #: download_file.module:166
 msgid "Displays a link accessible to direct download the file."
-msgstr "Afficher un lien accessible pour le t�l�chargement direct du fichier."
+msgstr "Afficher un lien accessible pour le téléchargement direct du fichier."
 
 #: download_file.module:169
 msgid "Direct download file accessible with the type icon"
-msgstr "T�l�chargement direct accessible du fichier avec l'ic�ne du type"
+msgstr "Téléchargement direct accessible du fichier avec l'icône du type"
 
 #: download_file.module:172
 msgid "Displays a link accessible to direct download the file with the type icon."
-msgstr "Afficher un lien accessible pour le t�l�chargement direct du fichier avec l'ic�ne du type."
+msgstr "Afficher un lien accessible pour le téléchargement direct du fichier avec l'icône du type."
 
 #: download_file.module:18
 msgid "access direct download file"
-msgstr "acc�der au t�l�chargement direct de fichier"
+msgstr "accéder au téléchargement direct de fichier"
 
 #: download_file.module:28
 #: download_file.info:0
 msgid "Download file"
-msgstr "T�l�charger le fichier"
+msgstr "Télécharger le fichier"
 
 #: download_file.info:0
 msgid "Module direct download files or images."
-msgstr "Module de t�l�chargement direct de fichiers et d'images."
+msgstr "Module de téléchargement direct de fichiers et d'images."
 
