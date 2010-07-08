@@ -21,6 +21,9 @@ To submit bug reports and feature suggestions, or to track changes:
 2) Enable the module using Administer -> Site building -> Modules
    (/admin/build/modules).
 
+3) Configure user permissions in Administer -> User management -> Permissions ->
+   download_file module and "access direct download file".
+
 3) Manage teaser and full node display settings at Administer -> Content
    -> Content types -> "your type" -> Manage fields
    (/admin/content/node-type/"your type"/fields)
