@@ -12,7 +12,7 @@ To submit bug reports and feature suggestions, or to track changes:
 
 -- REQUIREMENTS --
 
- * FileField
+ * File
 
 -- INSTALLATION --
 

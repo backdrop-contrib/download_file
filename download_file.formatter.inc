@@ -2,11 +2,6 @@
 // $Id$
 
 /**
- * @file
- * Download file formatter hooks and callbacks.
- */
-
-/**
  * Theming function for displaying the link to direct download the file.
  *
  * @param $element
@@ -18,11 +13,12 @@ function theme_download_file_formatter_direct_download($element) {
   $output = '';
 
   foreach (element_children($element) as $i) {
-	$file = $element[$i]['#item'];
-
-	if (!empty($file)) {
-	  $output .= theme('download_file_direct_download_item', $file);
-	}
+    $file = $element[$i]['#item'];
+  
+    if (!empty($file)) {
+      $output .= theme('download_file_direct_download_item', 
+                       array('file' => $file));
+    }
   }
 
   return $output;
@@ -40,11 +36,12 @@ function theme_download_file_formatter_direct_download_icon($element) {
   $output = '';
 
   foreach (element_children($element) as $i) {
-	$file = $element[$i]['#item'];
-
-	if (!empty($file)) {
-	  $output .= theme('download_file_direct_download_icon_item', $file);
-	}
+    $file = $element[$i]['#item'];
+  
+    if (!empty($file)) {
+      $output .= theme('download_file_direct_download_icon_item', 
+                       array('file' => $file));
+    }
   }
 
   return $output;
@@ -62,11 +59,12 @@ function theme_download_file_formatter_direct_download_accessible($element) {
   $output = '';
 
   foreach (element_children($element) as $i) {
-	$file = $element[$i]['#item'];
-
-	if (!empty($file)) {
-	  $output .= theme('download_file_direct_download_item_accessible', $file);
-	}
+    $file = $element[$i]['#item'];
+  
+    if (!empty($file)) {
+      $output .= theme('download_file_direct_download_item_accessible', 
+                       array('file' => $file));
+    }
   }
 
   return ($output) ? '<ul class="download-file">' . $output . '</ul>' : $output;
@@ -80,15 +78,14 @@ function theme_download_file_formatter_direct_download_accessible($element) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_formatter_direct_download_accessible_icon($element) {
+function theme_download_file_formatter_direct_download_accessible_icon($variables) {
   $output = '';
 
-  foreach (element_children($element) as $i) {
-	$file = $element[$i]['#item'];
-
-	if (!empty($file)) {
-	  $output .= theme('download_file_direct_download_icon_item_accessible', $file);
-	}
+  foreach ($variables['items'] as $delta => $item) {
+    if (!empty($item)) {
+      $output .= theme('download_file_direct_download_icon_item_accessible', 
+                       array('file' => (object) $item));
+    }
   }
 
   return ($output) ? '<ul class="download-file">' . $output . '</ul>' : $output;
@@ -102,14 +99,15 @@ function theme_download_file_formatter_direct_download_accessible_icon($element)
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_direct_download_item($file) {
+function theme_download_file_direct_download_item($variables) {
+  $file = $variables['file'];
+  
   // Views may call this function with a NULL value, return an empty string.
   if (empty($file['fid'])) {
     return '';
   }
 
-  $path = $file['filepath'];
-  $url	= download_file_path($file['fid']);
+  $url  = download_file_path($file['fid']);
 
   // Use the description as the link text if available.
   if (empty($file['data']['description'])) {
@@ -131,15 +129,16 @@ function theme_download_file_direct_download_item($file) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_direct_download_icon_item($file) {
+function theme_download_file_direct_download_icon_item($variables) {
+  $file = $variables['file'];
+  
   // Views may call this function with a NULL value, return an empty string.
   if (empty($file['fid'])) {
     return '';
   }
 
-  $path = $file['filepath'];
-  $url	= download_file_path($file['fid']);
-  $icon = theme('filefield_icon', $file);
+  $url  = download_file_path($file['fid']);
+  $icon = theme('file_icon', array('file' => $file));
 
   // Use the description as the link text if available.
   if (empty($file['data']['description'])) {
@@ -161,15 +160,16 @@ function theme_download_file_direct_download_icon_item($file) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_direct_download_item_accessible($file) {
+function theme_download_file_direct_download_item_accessible($variables) {
+  $file = $variables['file'];
+  
   // Views may call this function with a NULL value, return an empty string.
   if (empty($file['fid'])) {
     return '';
   }
 
-  $path			   = $file['filepath'];
-  $url			   = download_file_path($file['fid']);
-  $accessibility   = theme('download_file_detail_accessible', $file);
+  $url         = download_file_path($file['fid']);
+  $accessibility   = theme('download_file_detail_accessible', array('file' => $file));
   $options['html'] = TRUE;
 
   // Use the description as the link text if available.
@@ -177,7 +177,7 @@ function theme_download_file_direct_download_item_accessible($file) {
     $link_text = $file['filename'];
   }
   else {
-    $link_text						= $file['data']['description'];
+    $link_text            = $file['data']['description'];
     $options['attributes']['title'] = $file['filename'];
   }
 
@@ -192,25 +192,26 @@ function theme_download_file_direct_download_item_accessible($file) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_direct_download_icon_item_accessible($file) {
+function theme_download_file_direct_download_icon_item_accessible($variables) {
+  $file = $variables['file'];
+  
   // Views may call this function with a NULL value, return an empty string.
-  if (empty($file['fid'])) {
+  if (empty($file->fid)) {
     return '';
   }
 
-  $path			   = $file['filepath'];
-  $url			   = download_file_path($file['fid']);
-  $icon			   = theme('filefield_icon', $file);
-  $accessibility   = theme('download_file_detail_accessible', $file);
+  $url             = download_file_path($file->fid);
+  $icon            = theme('file_icon', array('file' => $file));
+  $accessibility   = theme('download_file_detail_accessible', array('file' => $file));
   $options['html'] = TRUE;
 
   // Use the description as the link text if available.
-  if (empty($file['data']['description'])) {
-    $link_text = $file['filename'];
+  if (empty($file->description)) {
+    $link_text = $file->filename;
   }
   else {
-    $link_text						= $file['data']['description'];
-    $options['attributes']['title'] = $file['filename'];
+    $link_text                      = $file->description;
+    $options['attributes']['title'] = $file->filename;
   }
 
   return '<li>' . $icon . l($link_text . ' ' . $accessibility, $url, $options) . '</li>';
@@ -224,15 +225,32 @@ function theme_download_file_direct_download_icon_item_accessible($file) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_detail_accessible($file) {
-  if (is_object($file)) {
-    $file = (array) $file;
+function theme_download_file_detail_accessible($variables) {
+  $file = $variables['file'];
+
+  $extension = theme('download_file_extension_accessible', 
+                    array('extension' => download_file_format_extension($file)));
+  $file_size = theme('download_file_bytes_accessible', array('filesize' => $file->filesize));
+
+  return '<span class="detail">' . t('(format !extension / !file_size)', array('!extension' => $extension, '!file_size' => $file_size)). '</span>';
+}
+
+/**
+ * Theme function for the extension accessible.
+ *
+ * @param $extension
+ *   File extension to format.
+ * @return
+ *   A string containing the HTML ouput.
+ */
+function theme_download_file_extension_accessible($variables) {
+  $extension = $variables['extension'];
+  
+  if (is_array($extension)) {
+    $extension = '<acronym title="' . $extension['definition'] . '">' . $extension['name'] . '</acronym>';
   }
   
-  $extension = download_file_format_extension($file);
-  $file_size = theme('download_file_bytes_accessible', $file['filesize']);
-  
-  return '<span class="detail">' . t('(format !extension / !file_size)', array('!extension' => $extension, '!file_size' => $file_size)). '</span>';
+  return $extension;
 }
 
 /**
@@ -243,18 +261,20 @@ function theme_download_file_detail_accessible($file) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_bytes_accessible($filesize) {
+function theme_download_file_bytes_accessible($variables) {
+  $filesize = $variables['filesize'];
+  
   if (empty($filesize)) {
-	return '';
+    return '';
   }
 
   list($size, $unit) = download_file_format_bytes($filesize, 0);
-  $acronyms			 = array(t('B') => t('Bytes'),
-							t('KB') => t('Kilo Bytes'),
-							t('MB') => t('Mega Bytes'),
-							t('GB') => t('Giga Bytes'),
-							t('TB') => t('Tera Bytes'),
-							t('PB') => t('Peta Bytes'));
+  $acronyms          = array(t('B') => t('Bytes'),
+                            t('KB') => t('Kilo Bytes'),
+                            t('MB') => t('Mega Bytes'),
+                            t('GB') => t('Giga Bytes'),
+                            t('TB') => t('Tera Bytes'),
+                            t('PB') => t('Peta Bytes'));
 
   return $size . ' <acronym title="' . $acronyms[$unit] . '">' . $unit . '</acronym>';
 }

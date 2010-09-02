@@ -1,5 +1,7 @@
 ; $Id$
 name = DownloadFile
 description = "Module direct download files or images."
-dependencies[] = filefield
-core = 6.x
+dependencies[] = file
+core = 7.x
+files[] = download_file.formatter.inc
+files[] = download_file.module

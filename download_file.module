@@ -5,7 +5,7 @@
  * @file
  * Module to direct download files or images.
  *
- * This module is for Drupal 6.x only.
+ * This module is for Drupal 7.x only.
  *
  * Module by: Matthieu Moratille
  * Mailto: mmoratille@yahoo.fr
@@ -14,21 +14,23 @@
 /**
  * Implementation of hook_perm().
  */
-function download_file_perm() {
-  return array('access direct download file');
+function download_file_permission() {
+  return array(
+    'access direct download file' => array(
+      'title' => t('Access direct download file')
+    )
+  );
 }
 
 /**
  * Implementation of hook_menu().
  */
 function download_file_menu() {
-  $items = array();
-
   $items['download/file/fid/%'] = array(
-	'title'			   => 'Download file',
-	'page callback'	   => 'download_file_direct_download',
-	'page arguments'   => array(3),
-	'access arguments' => array('access direct download file')
+  	'title'            => 'Download file',
+  	'page callback'	   => 'download_file_direct_download',
+  	'page arguments'   => array(3),
+  	'access arguments' => array('access direct download file')
   );
 
   return $items;
@@ -40,45 +42,49 @@ function download_file_menu() {
 function download_file_theme() {
   $theme = array(
     'download_file_formatter_direct_download' => array(
-      'arguments' => array('element' => NULL),
-      'file'	  => 'download_file.formatter.inc'
+      'variables' => array('items' => NULL),
+      'file' => 'download_file.formatter.inc'
     ),
     'download_file_formatter_direct_download_icon' => array(
-      'arguments' => array('element' => NULL),
-      'file'	  => 'download_file.formatter.inc'
+      'variables' => array('items' => NULL),
+      'file' => 'download_file.formatter.inc'
     ),
-	'download_file_formatter_direct_download_accessible' => array(
-      'arguments' => array('element' => NULL),
-      'file'	  => 'download_file.formatter.inc'
+  	'download_file_formatter_direct_download_accessible' => array(
+      'variables' => array('items' => NULL),
+      'file' => 'download_file.formatter.inc'
     ),
-	'download_file_formatter_direct_download_accessible_icon' => array(
-      'arguments' => array('element' => NULL),
-      'file'	  => 'download_file.formatter.inc'
+  	'download_file_formatter_direct_download_accessible_icon' => array(
+      'variables' => array('items' => NULL),
+      'file' => 'download_file.formatter.inc'
     ),
-	'download_file_direct_download_item' => array(
-	  'arguments' => array('file' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	),
-	'download_file_direct_download_icon_item' => array(
-	  'arguments' => array('file' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	),
-	'download_file_direct_download_item_accessible' => array(
-	  'arguments' => array('file' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	),
-	'download_file_direct_download_icon_item_accessible' => array(
-	  'arguments' => array('file' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	),
-	'download_file_detail_accessible' => array(
-	  'arguments' => array('file' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	),
-	'download_file_bytes_accessible' => array(
-	  'arguments' => array('filesize' => NULL),
-	  'file'	  => 'download_file.formatter.inc'
-	)
+  	'download_file_direct_download_item' => array(
+  	  'variables' => array('file' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	),
+  	'download_file_direct_download_icon_item' => array(
+  	  'variables' => array('file' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	),
+  	'download_file_direct_download_item_accessible' => array(
+  	  'variables' => array('file' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	),
+  	'download_file_direct_download_icon_item_accessible' => array(
+  	  'variables' => array('file' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	),
+  	'download_file_detail_accessible' => array(
+  	  'variables' => array('file' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	),
+    'download_file_extension_accessible' => array(
+      'variables' => array('extension' => NULL),
+      'file' => 'download_file.formatter.inc'
+    ),
+  	'download_file_bytes_accessible' => array(
+  	  'variables' => array('filesize' => NULL),
+      'file' => 'download_file.formatter.inc'
+  	)
   );
 
   return $theme;
@@ -92,29 +98,31 @@ function download_file_theme() {
  */
 function download_file_direct_download($fid) {
   $fid  = intval($fid);
-  $file = field_file_load($fid);
+  $file = file_load($fid);
 
-  if (empty($fid) || empty($file) || !$file['status']) {
-	return drupal_access_denied();
+  if (empty($fid) || empty($file) || !$file->status) {
+    return drupal_access_denied();
   }
+  
+  $headers = array(
+    'Content-type: force-download',
+    'Content-disposition: attachment; filename="' . $file->filename . '"',
+    'Content-Type: ' . $file->filemime . '; name="' . $file->filename . '"',
+    'Content-Length: ' . $file->filesize,
+    'Content-Transfer-Encoding: binary',
+    'Pragma: no-cache',
+    'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+    'Expires: 0',
+    'Accept-Ranges: bytes'
+  );
 
-  $file_name = $file['filename'];
-  $headers   = array('Content-type: force-download',
-                    'Content-disposition: attachment; filename="' . $file_name . '"',
-                    'Content-Type: ' . $file['filemime'] . '; name="' . $file_name . '"',
-                    'Content-Length: ' . $file['filesize'],
-                    'Content-Transfer-Encoding: binary',
-                    'Pragma: no-cache',
-                    'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
-                    'Expires: 0',
-                    'Accept-Ranges: bytes');
-
+  // Let other modules provide headers and controls access to the file.
   if (in_array(-1, $headers)) {
-	return drupal_access_denied();
+    return drupal_access_denied();
   }
 
   if (count($headers)) {
-	file_transfer($file['filepath'], $headers);
+    file_transfer($file->uri, $headers);
   }
 }
 
@@ -147,31 +155,66 @@ function download_file_path($fid) {
  */
 function download_file_field_formatter_info() {
   return array(
-	'direct_download' => array(
-	  'label'			=> t('Direct download file'),
-	  'field types'		=> array('filefield'),
-	  'multiple values' =>  CONTENT_HANDLE_MODULE,
-	  'description'		=> t('Displays a link to direct download the file.')
-	),
-	'direct_download_icon' => array(
-	  'label'			=> t('Direct download file with the type icon'),
-	  'field types'		=> array('filefield'),
-	  'multiple values' =>  CONTENT_HANDLE_MODULE,
-	  'description'		=> t('Displays a link to direct download the file with the type icon.')
-	),
-	'direct_download_accessible' => array(
-	  'label'			=> t('Direct download file accessible'),
-	  'field types'		=> array('filefield'),
-	  'multiple values' =>  CONTENT_HANDLE_MODULE,
-	  'description'		=> t('Displays a link accessible to direct download the file.')
-	),
-	'direct_download_accessible_icon' => array(
-	  'label'			=> t('Direct download file accessible with the type icon'),
-	  'field types'		=> array('filefield'),
-	  'multiple values' =>  CONTENT_HANDLE_MODULE,
-	  'description'		=> t('Displays a link accessible to direct download the file with the type icon.')
-	)
+    'direct_download' => array(
+      'label'         => t('Direct download file'),
+      'field types'   => array('file'),
+      'description'   => t('Displays a link to direct download the file.')
+    ),
+    'direct_download_icon' => array(
+      'label'         => t('Direct download file with the type icon'),
+      'field types'   => array('file'),
+      'description'   => t('Displays a link to direct download the file with the type icon.')
+    ),
+    'direct_download_accessible' => array(
+      'label'         => t('Direct download file accessible'),
+      'field types'   => array('file'),
+      'description'   => t('Displays a link accessible to direct download the file.')
+    ),
+    'direct_download_accessible_icon' => array(
+      'label'         => t('Direct download file accessible with the type icon'),
+      'field types'   => array('file'),
+      'description'   => t('Displays a link accessible to direct download the file with the type icon.')
+    )
   );
+}
+
+/**
+ * Implementation of hook_field_formatter_view().
+ */
+function download_file_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'direct_download':
+      $element[0] = array(
+        '#theme' => 'download_file_formatter_direct_download',
+        '#items' => $items
+      );
+      break;
+
+    case 'direct_download_icon':
+      $element[0] = array(
+        '#theme' => 'download_file_formatter_direct_download_icon',
+        '#items' => $items
+      );
+      break;
+
+    case 'direct_download_accessible':
+      $element[0] = array(
+        '#theme' => 'download_file_formatter_direct_download_accessible',
+        '#items' => $items
+      );
+      break;
+
+    case 'direct_download_accessible_icon':
+      $element[0] = array(
+        '#theme' => 'download_file_formatter_direct_download_accessible_icon',
+        '#items' => $items
+      );
+      break;
+  }
+
+  return $element;
 }
 
 /**
@@ -198,14 +241,18 @@ function download_file_format_bytes($bytes, $precision) {
  * @param $file
  *   The file.
  * @return
- *   A string containing the formatted acronym of file extension.
+ *   An array containing the formatted acronym of file extension.
  */
 function download_file_format_extension($file) {
-  $extension = pathinfo(strtoupper(check_plain($file['filename'])), PATHINFO_EXTENSION);
+  $extension = pathinfo(strtoupper(check_plain($file->filename)), PATHINFO_EXTENSION);
 
-  switch ($file['filemime']) {
-	// Word document types.
+  switch ($file->filemime) {
+    // Word document types.
     case 'application/msword':
+    case 'application/doc':
+    case 'application/vnd.ms-word':
+    case 'application/winword':
+    case 'application/word':
     case 'application/vnd.ms-word.document.macroEnabled.12':
     case 'application/vnd.oasis.opendocument.text':
     case 'application/vnd.oasis.opendocument.text-template':
@@ -213,114 +260,163 @@ function download_file_format_extension($file) {
     case 'application/vnd.oasis.opendocument.text-web':
     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
     case 'application/vnd.wordperfect':
-	  return '<acronym title="DOCument">DOC</acronym>';
+      return array('definition' => 'DOCument', 
+                  'name' => 'DOC');
 
     // Spreadsheet document types.
     case 'application/vnd.ms-excel':
+    case 'application/xls':
+    case 'application/msexcel':
     case 'application/vnd.ms-excel.sheet.macroEnabled.12':
     case 'application/vnd.oasis.opendocument.spreadsheet':
     case 'application/vnd.oasis.opendocument.spreadsheet-template':
     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-	  return '<acronym title="eXceL Spreadsheet">XLS</acronym>';
+      return array('definition' => 'eXceL Spreadsheet', 
+                  'name' => 'XLS');
 
     // Presentation document types.
     case 'application/vnd.ms-powerpoint':
+    case 'application/powerpoint':
+    case 'application/mspowerpoint':
+    case 'application/ms-powerpoint':
     case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
     case 'application/vnd.oasis.opendocument.presentation':
     case 'application/vnd.oasis.opendocument.presentation-template':
     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-	  return '<acronym title="PowerPoinT">PPT</acronym>';
+      return array('definition' => 'PowerPoinT', 
+                  'name' => 'PPT');
 
-	// Portable document types.
-	case 'application/pdf':
-	case 'application/x-pdf':
-	case 'application/x-bzpdf':
-	case 'application/x-gzpdf':
-	  return '<acronym title="Portable Document Format">PDF</acronym>';
+    // Portable document types.
+    case 'application/pdf':
+    case 'application/x-pdf':
+    case 'application/x-bzpdf':
+    case 'application/x-gzpdf':
+    case 'applications/vnd.pdf':
+    case 'text/pdf':
+    case 'text/x-pdf':
+      return array('definition' => 'Portable Document Format', 
+                  'name' => 'PDF');
 
     // ZIP compressed archive types.
     case 'application/zip':
+    case 'application/gzip':
+    case 'application/gzip-compressed':
     case 'application/x-zip':
+    case 'application/x-zip-compressed':
     case 'application/x-bzip':
     case 'application/x-compress':
+    case 'application/x-compressed':
     case 'application/x-gzip':
     case 'application/x-tgz':
-	  return '<acronym title="Archive">ZIP</acronym>';
+      return array('definition' => 'Archive', 
+                  'name' => 'ZIP');
 
-	// RAR compressed archive types.
+    // RAR compressed archive types.
+    case 'application/tar':
     case 'application/x-rar':
     case 'application/x-bzip-compressed-tar':
     case 'application/x-tar':
+    case 'application/x-gtar':
     case 'application/x-tarz':
-	  return '<acronym title="Roshal ARchive">RAR</acronym>';
+      return array('definition' => 'Roshal ARchive', 
+                  'name' => 'RAR');
 
-	// 7z compressed archive types.
+    // 7z compressed archive types.
     case 'application/x-7z-compressed':
-	  return '<acronym title="7-Zip Archive">7Z</acronym>';
+      return array('definition' => '7-Zip Archive', 
+                  'name' => '7Z');
 
-	// Text file types.
+    // Text file types.
+    case 'application/txt':
     case 'text/plain':
-	  return '<acronym title="TeXTe">TXT</acronym>';
+      return array('definition' => 'TeXTe', 
+                  'name' => 'TXT');
 
-	// CSV aliases.
-	case 'text/csv':
-	case 'text/comma-separated-values':
-	  return '<acronym title="Comma-Separated Values">CSV</acronym>';
+    // CSV aliases.
+    case 'application/csv':
+    case 'text/csv':
+    case 'text/comma-separated-values':
+      return array('definition' => 'Comma-Separated Values', 
+                  'name' => 'CSV');
 
     // HTML aliases.
     case 'application/xhtml+xml':
-	case 'text/html':
-      return '<acronym title="HyperText Markup Language">HTML</acronym>';
+    case 'text/html':
+      return array('definition' => 'HyperText Markup Language', 
+                  'name' => 'HTML');
 
-	// XML aliases.
+    // XML aliases.
     case 'application/xml':
-	case 'text/xml':
-      return '<acronym title="eXtensible Markup Language">XML</acronym>';
+    case 'text/xml':
+      return array('definition' => 'eXtensible Markup Language', 
+                  'name' => 'XML');
 
-	// RSS aliases.
-	case 'application/rss+xml':
-      return '<acronym title="Really Simple Syndication">RSS</acronym>';
+    // RSS aliases.
+    case 'application/rss+xml':
+      return array('definition' => 'Really Simple Syndication', 
+                  'name' => 'RSS');
 
-	// JPEG images.
-	case 'image/jpeg':
-      return '<acronym title="Joint Photographic Experts Group">JPEG</acronym>';
+    // JPEG images.
+    case 'image/jpeg':
+    case 'image/jpg':
+      return array('definition' => 'Joint Photographic Experts Group', 
+                  'name' => 'JPEG');
 
-	// PNG images.
-	case 'image/png':
-      return '<acronym title="Portable Network Graphics">PNG</acronym>';
+    // PNG images.
+    case 'application/png':
+    case 'image/png':
+      return array('definition' => 'Portable Network Graphics', 
+                  'name' => 'PNG');
 
-	// GIF images.
-	case 'image/gif':
-      return '<acronym title="Graphics Interchange Format">GIF</acronym>';
-
-	// RSS aliases.
-	case 'application/rss+xml':
-      return '<acronym title="Really Simple Syndication">RSS</acronym>';
+    // GIF images.
+    case 'image/gif':
+      return array('definition' => 'Graphics Interchange Format', 
+                  'name' => 'GIF');
 
     // Executable types.
+    case 'application/exe':
+    case 'application/dos-exe':
     case 'application/x-macbinary':
     case 'application/x-ms-dos-executable':
     case 'application/x-pef-executable':
-      return '<acronym title="Executable">EXE</acronym>';
+      return array('definition' => 'Executable', 
+                  'name' => 'EXE');
 
-	// QuickTime movie types.
+    // Audio Video Interleave types.
+    case 'video/vnd.avi':
+    case 'video/avi':
+    case 'video/msvideo':
+    case 'video/x-msvideo':
+      return array('definition' => 'Audio Video Interleave', 
+                  'name' => 'AVI');
+
+    // QuickTime movie types.
     case 'video/quicktime':
-      return '<acronym title="QuickTime MOVie">MOV</acronym>';
+    case 'video/x-quicktime':
+      return array('definition' => 'QuickTime MOVie', 
+                  'name' => 'MOV');
 
-	// Windows audio types.
-	case 'audio/vnd.wave':
-	case 'audio/wav':
-	case 'audio/wave':
-	case 'audio/x-wav':
-      return '<acronym title="WAVeform Audio File Format">WAV</acronym>';
+    // Windows audio types.
+    case 'audio/vnd.wave':
+    case 'audio/wav':
+    case 'audio/wave':
+    case 'audio/x-wav':
+      return array('definition' => 'WAVeform Audio File Format', 
+                  'name' => 'WAV');
 
-	// MPEG audio types.
-	case 'audio/mpeg':
-	case 'audio/MPA':
-	case 'audio/mpa-robust':
-	  return '<acronym title="MPEG-1 Audio Layer 3">MP3</acronym>';
+    // MPEG audio types.
+    case 'audio/mpeg':
+    case 'audio/x-mpeg':
+    case 'audio/mp3':
+    case 'audio/x-mp3':
+    case 'audio/mpeg3':
+    case 'audio/x-mpeg3':
+    case 'audio/MPA':
+    case 'audio/mpa-robust':
+      return array('definition' => 'MPEG-1 Audio Layer 3', 
+                  'name' => 'MP3');
 
-	default:
-	  return $extension;
+    default:
+      return $extension;
   }
 }

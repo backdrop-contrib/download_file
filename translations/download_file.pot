@@ -104,8 +104,8 @@ msgstr ""
 msgid "Displays a link accessible to direct download the file with the type icon."
 msgstr ""
 
-#: download_file.module:18
-msgid "access direct download file"
+#: download_file.module:20
+msgid "Access direct download file"
 msgstr ""
 
 #: download_file.module:28 download_file.info:0

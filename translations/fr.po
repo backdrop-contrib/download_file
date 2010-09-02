@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: French Translation for drupal download file module\n"
 "POT-Creation-Date: 2010-06-03 09:01+0200\n"
 "PO-Revision-Date: 2010-06-03 14:11+0100\n"
-"Last-Translator: Matthieu Moratille <mmoratille@core-techs.fr>\n"
+"Last-Translator: Matthieu Moratille <mmoratille@yahoo.fr>\n"
 "Language-Team:  <mmoratille@yahoo.fr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,9 +106,9 @@ msgstr "Téléchargement direct accessible du fichier avec l'icône du type"
 msgid "Displays a link accessible to direct download the file with the type icon."
 msgstr "Afficher un lien accessible pour le téléchargement direct du fichier avec l'icône du type."
 
-#: download_file.module:18
-msgid "access direct download file"
-msgstr "accéder au téléchargement direct de fichier"
+#: download_file.module:20
+msgid "Access direct download file"
+msgstr "Accéder au téléchargement direct de fichier"
 
 #: download_file.module:28
 #: download_file.info:0
