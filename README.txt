@@ -28,8 +28,27 @@ To submit bug reports and feature suggestions, or to track changes:
    Content types -> "your type" -> manage display 
    (admin/structure/types/manage/"your type"/display).
   
-5) Choose a formatter to apply to files or images in that field. Four new 
-   formatters appear in the select list "Direct download file".
+5) Choose a formatter to apply to files or images in that field. Four new formatters 
+   "Direct download file" appear in the select list.
+
+
+Using with Views module
+-----------------------
+Similarly, you can use a formatter when displaying files or images attached to
+nodes using File or Image in a View (http://drupal.org/project/views)
+through the Views UI.
+
+1) Manage display at Dashboard -> Structure -> Views (/admin/structure/views) and 
+   add a new view by clicking the "Add new view" link (/admin/structure/views/add) 
+   or edit an existing view by clicking the "Edit" link 
+   (/admin/structure/views/edit/"your view").
+
+2) Click on a file field or image field.
+
+3) Choose a formatter in select list "Format" to apply at this field. Four new 
+   formatters "Direct download file" appear.
+
+4) Click on "Save" button and see the display in the preview.
 
 -- CONTACT --
 
