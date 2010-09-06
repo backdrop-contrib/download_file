@@ -20,55 +20,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: download_file.formatter.inc:235
+#: download_file.formatter.inc:229
 msgid "(format !extension / !file_size)"
 msgstr ""
 
-#: download_file.formatter.inc:272 download_file.module:230
+#: download_file.formatter.inc:266 download_file.module:230
 msgid "B"
 msgstr ""
 
-#: download_file.formatter.inc:252
+#: download_file.formatter.inc:266
 msgid "Bytes"
 msgstr ""
 
-#: download_file.formatter.inc:273 download_file.module:230
+#: download_file.formatter.inc:267 download_file.module:230
 msgid "KB"
 msgstr ""
 
-#: download_file.formatter.inc:273
+#: download_file.formatter.inc:267
 msgid "Kilo Bytes"
 msgstr ""
 
-#: download_file.formatter.inc:274 download_file.module:230
+#: download_file.formatter.inc:268 download_file.module:230
 msgid "MB"
 msgstr ""
 
-#: download_file.formatter.inc:274
+#: download_file.formatter.inc:268
 msgid "Mega Bytes"
 msgstr ""
 
-#: download_file.formatter.inc:275 download_file.module:230
+#: download_file.formatter.inc:269 download_file.module:230
 msgid "GB"
 msgstr ""
 
-#: download_file.formatter.inc:275
+#: download_file.formatter.inc:269
 msgid "Giga Bytes"
 msgstr ""
 
-#: download_file.formatter.inc:276 download_file.module:230
+#: download_file.formatter.inc:270 download_file.module:230
 msgid "TB"
 msgstr ""
 
-#: download_file.formatter.inc:276
+#: download_file.formatter.inc:270
 msgid "Tera Bytes"
 msgstr ""
 
-#: download_file.formatter.inc:277 download_file.module:230
+#: download_file.formatter.inc:271 download_file.module:230
 msgid "PB"
 msgstr ""
 
-#: download_file.formatter.inc:277
+#: download_file.formatter.inc:271
 msgid "Peta Bytes"
 msgstr ""
 

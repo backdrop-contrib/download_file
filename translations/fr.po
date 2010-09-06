@@ -23,61 +23,61 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: download_file.formatter.inc:235
+#: download_file.formatter.inc:229
 msgid "(format !extension / !file_size)"
 msgstr "(format !extension / !file_size)"
 
-#: download_file.formatter.inc:272
+#: download_file.formatter.inc:266
 #: download_file.module:230
 msgid "B"
 msgstr "o"
 
-#: download_file.formatter.inc:272
+#: download_file.formatter.inc:266
 msgid "Bytes"
 msgstr "Octets"
 
-#: download_file.formatter.inc:273
+#: download_file.formatter.inc:267
 #: download_file.module:230
 msgid "KB"
 msgstr "Ko"
 
-#: download_file.formatter.inc:273
+#: download_file.formatter.inc:267
 msgid "Kilo Bytes"
 msgstr "Kilo octets"
 
-#: download_file.formatter.inc:274
+#: download_file.formatter.inc:268
 #: download_file.module:230
 msgid "MB"
 msgstr "Mo"
 
-#: download_file.formatter.inc:274
+#: download_file.formatter.inc:268
 msgid "Mega Bytes"
 msgstr "Méga octets"
 
-#: download_file.formatter.inc:275
+#: download_file.formatter.inc:269
 #: download_file.module:230
 msgid "GB"
 msgstr "Go"
 
-#: download_file.formatter.inc:275
+#: download_file.formatter.inc:269
 msgid "Giga Bytes"
 msgstr "Giga octets"
 
-#: download_file.formatter.inc:276
+#: download_file.formatter.inc:270
 #: download_file.module:230
 msgid "TB"
 msgstr "To"
 
-#: download_file.formatter.inc:276
+#: download_file.formatter.inc:270
 msgid "Tera Bytes"
 msgstr "Téra octets"
 
-#: download_file.formatter.inc:277
+#: download_file.formatter.inc:271
 #: download_file.module:230
 msgid "PB"
 msgstr "Po"
 
-#: download_file.formatter.inc:277
+#: download_file.formatter.inc:271
 msgid "Peta Bytes"
 msgstr "Péta octets"
 
