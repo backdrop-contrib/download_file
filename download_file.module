@@ -43,47 +43,47 @@ function download_file_theme() {
   $theme = array(
     'download_file_formatter_direct_download' => array(
       'variables' => array('items' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
     ),
     'download_file_formatter_direct_download_icon' => array(
       'variables' => array('items' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
     ),
   	'download_file_formatter_direct_download_accessible' => array(
       'variables' => array('items' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
     ),
   	'download_file_formatter_direct_download_accessible_icon' => array(
       'variables' => array('items' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
     ),
   	'download_file_direct_download_item' => array(
   	  'variables' => array('file' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	),
   	'download_file_direct_download_icon_item' => array(
   	  'variables' => array('file' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	),
   	'download_file_direct_download_item_accessible' => array(
   	  'variables' => array('file' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	),
   	'download_file_direct_download_icon_item_accessible' => array(
   	  'variables' => array('file' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	),
   	'download_file_detail_accessible' => array(
   	  'variables' => array('file' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	),
     'download_file_extension_accessible' => array(
       'variables' => array('extension' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
     ),
   	'download_file_bytes_accessible' => array(
   	  'variables' => array('filesize' => NULL),
-      'file' => 'download_file.formatter.inc'
+      'file'      => 'download_file.formatter.inc'
   	)
   );
 
@@ -105,14 +105,14 @@ function download_file_direct_download($fid) {
   }
   
   $headers = array(
-    'Content-Type' => 'force-download',
-    'Content-Disposition' => 'attachment; filename="' . $file->filename . '"',
-    'Content-Length' => $file->filesize,
+    'Content-Type'              => 'force-download',
+    'Content-Disposition'       => 'attachment; filename="' . $file->filename . '"',
+    'Content-Length'            => $file->filesize,
     'Content-Transfer-Encoding' => 'binary',
-    'Pragma' => 'no-cache',
-    'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
-    'Expires' =>'0',
-    'Accept-Ranges' => 'bytes'
+    'Pragma'                    => 'no-cache',
+    'Cache-Control'             => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+    'Expires'                   => '0',
+    'Accept-Ranges'             => 'bytes'
   );
 
   // Let other modules provide headers and controls access to the file.
