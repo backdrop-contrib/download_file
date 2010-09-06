@@ -9,15 +9,13 @@
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_formatter_direct_download($element) {
+function theme_download_file_formatter_direct_download($variables) {
   $output = '';
 
-  foreach (element_children($element) as $i) {
-    $file = $element[$i]['#item'];
-  
-    if (!empty($file)) {
+  foreach ($variables['items'] as $delta => $item) {
+    if (!empty($item)) {
       $output .= theme('download_file_direct_download_item', 
-                       array('file' => $file));
+                       array('file' => (object) $item));
     }
   }
 
@@ -32,15 +30,13 @@ function theme_download_file_formatter_direct_download($element) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_formatter_direct_download_icon($element) {
+function theme_download_file_formatter_direct_download_icon($variables) {
   $output = '';
 
-  foreach (element_children($element) as $i) {
-    $file = $element[$i]['#item'];
-  
-    if (!empty($file)) {
+  foreach ($variables['items'] as $delta => $item) {
+    if (!empty($item)) {
       $output .= theme('download_file_direct_download_icon_item', 
-                       array('file' => $file));
+                       array('file' => (object) $item));
     }
   }
 
@@ -55,15 +51,13 @@ function theme_download_file_formatter_direct_download_icon($element) {
  * @return
  *   A string containing the HTML ouput.
  */
-function theme_download_file_formatter_direct_download_accessible($element) {
+function theme_download_file_formatter_direct_download_accessible($variables) {
   $output = '';
 
-  foreach (element_children($element) as $i) {
-    $file = $element[$i]['#item'];
-  
-    if (!empty($file)) {
+  foreach ($variables['items'] as $delta => $item) {
+    if (!empty($item)) {
       $output .= theme('download_file_direct_download_item_accessible', 
-                       array('file' => $file));
+                       array('file' => (object) $item));
     }
   }
 
@@ -103,19 +97,19 @@ function theme_download_file_direct_download_item($variables) {
   $file = $variables['file'];
   
   // Views may call this function with a NULL value, return an empty string.
-  if (empty($file['fid'])) {
+  if (empty($file->fid)) {
     return '';
   }
 
-  $url  = download_file_path($file['fid']);
+  $url  = download_file_path($file->fid);
 
   // Use the description as the link text if available.
-  if (empty($file['data']['description'])) {
-    $link_text = $file['filename'];
+  if (empty($file->description)) {
+    $link_text = $file->filename;
   }
   else {
-    $link_text = $file['data']['description'];
-    $options['attributes']['title'] = $file['filename'];
+    $link_text                      = $file->description;
+    $options['attributes']['title'] = $file->filename;
   }
 
   return '<div class="download-file clear-block">' . l($link_text, $url) . '</div>';
@@ -133,20 +127,20 @@ function theme_download_file_direct_download_icon_item($variables) {
   $file = $variables['file'];
   
   // Views may call this function with a NULL value, return an empty string.
-  if (empty($file['fid'])) {
+  if (empty($file->fid)) {
     return '';
   }
 
-  $url  = download_file_path($file['fid']);
+  $url  = download_file_path($file->fid);
   $icon = theme('file_icon', array('file' => $file));
 
   // Use the description as the link text if available.
-  if (empty($file['data']['description'])) {
-    $link_text = $file['filename'];
+  if (empty($file->description)) {
+    $link_text = $file->filename;
   }
   else {
-    $link_text = $file['data']['description'];
-    $options['attributes']['title'] = $file['filename'];
+    $link_text                      = $file->description;
+    $options['attributes']['title'] = $file->filename;
   }
 
   return '<div class="download-file clear-block">' . $icon . l($link_text, $url) . '</div>';
@@ -164,21 +158,21 @@ function theme_download_file_direct_download_item_accessible($variables) {
   $file = $variables['file'];
   
   // Views may call this function with a NULL value, return an empty string.
-  if (empty($file['fid'])) {
+  if (empty($file->fid)) {
     return '';
   }
 
-  $url         = download_file_path($file['fid']);
+  $url             = download_file_path($file->fid);
   $accessibility   = theme('download_file_detail_accessible', array('file' => $file));
   $options['html'] = TRUE;
 
   // Use the description as the link text if available.
-  if (empty($file['data']['description'])) {
-    $link_text = $file['filename'];
+  if (empty($file->description)) {
+    $link_text = $file->filename;
   }
   else {
-    $link_text            = $file['data']['description'];
-    $options['attributes']['title'] = $file['filename'];
+    $link_text                      = $file->description;
+    $options['attributes']['title'] = $file->filename;
   }
 
   return '<li>' . l($link_text . ' ' . $accessibility, $url, $options) . '</li>';
