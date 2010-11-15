@@ -18,18 +18,21 @@ To submit bug reports and feature suggestions, or to track changes:
   
 1) Copy the download_file folder to the modules folder in your installation.
 
-2) Enable the module using Dashboard -> Modules (/admin/modules).
+2) Enable the module using Administration -> Modules (/admin/modules).
 
-3) Configure user permissions in Dashboard -> People, click on the Permissions tab 
-   (admin/people/permissions), go to DownloadFile module part and 
-   "Access direct download file".
+3) Configure user permissions in Administration -> People, click on the 
+   Permissions tab (admin/people/permissions), go to DownloadFile module part 
+   and "Access direct download file".
   
-4) Manage teaser and full node display settings at Dashboard -> Structure -> 
-   Content types -> "your type" -> manage display 
+4) Manage teaser and full node display settings at Administration -> Structure 
+   -> Content types -> "your type" -> manage display 
    (admin/structure/types/manage/"your type"/display).
   
-5) Choose a formatter to apply to files or images in that field. Four new formatters 
-   "Direct download file" appear in the select list.
+5) Choose a formatter to apply to files or images in that field. Four new 
+   formatters "Direct download file" appear in the select list.
+
+6) Configure the format of the link accessible at Administration -> 
+   Configuration -> Media -> Download file (/admin/config/media/download-file).
 
 
 Using with Views module
@@ -38,10 +41,10 @@ Similarly, you can use a formatter when displaying files or images attached to
 nodes using File or Image in a View (http://drupal.org/project/views)
 through the Views UI.
 
-1) Manage display at Dashboard -> Structure -> Views (/admin/structure/views) and 
-   add a new view by clicking the "Add new view" link (/admin/structure/views/add) 
-   or edit an existing view by clicking the "Edit" link 
-   (/admin/structure/views/edit/"your view").
+1) Manage display at Administration -> Structure -> Views 
+   (/admin/structure/views) and add a new view by clicking the "Add new view" 
+   link (/admin/structure/views/add) or edit an existing view by clicking the 
+   "Edit" link (/admin/structure/views/edit/"your view").
 
 2) Click on a file field or image field.
 

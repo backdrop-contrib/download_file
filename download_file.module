@@ -12,12 +12,31 @@
  */
 
 /**
+ * Implementation of hook_help().
+ */
+function download_file_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#download_file':
+      $output = '';
+      $output .= '<p>' . t('The download file module to direct download files or images.') . '</p>';
+      $output .= '<p>' . t('The download file module <a href="@setting">setting page</a> allows you to modify the format of the link accessible.', array('@setting' => url('admin/settings/download-file'))) . '</p>';
+      return $output;
+    
+    case 'admin/settings/download-file':
+      return '<p>'. t('The fownload file module to direct download files or images. Use the setting below to customize the format of the link accessible.') .'</p>';
+  }
+}
+
+/**
  * Implementation of hook_perm().
  */
 function download_file_permission() {
   return array(
     'access direct download file' => array(
       'title' => t('Access direct download file')
+    ),
+    'administer download file' => array(
+      'title' => t('Administer download file')
     )
   );
 }
@@ -31,6 +50,15 @@ function download_file_menu() {
   	'page callback'	   => 'download_file_direct_download',
   	'page arguments'   => array(3),
   	'access arguments' => array('access direct download file')
+  );
+  $items['admin/config/media/download-file'] = array(
+    'title'            => 'Download file',
+    'description'      => 'Configure the format of the link accessible.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('download_file_settings'),
+    'access arguments' => array('administer download file'),
+    'weight'           => 30,
+    'file'             => 'download_file.admin.inc'
   );
 
   return $items;
@@ -110,7 +138,7 @@ function download_file_direct_download($fid) {
     'Content-Length'            => $file->filesize,
     'Content-Transfer-Encoding' => 'binary',
     'Pragma'                    => 'no-cache',
-    'Cache-Control'             => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+    'Cache-Control'             => 'must-revalidate, post-check=0, pre-check=0',
     'Expires'                   => '0',
     'Accept-Ranges'             => 'bytes'
   );
@@ -152,29 +180,37 @@ function download_file_path($fid) {
 /**
  * Implementation of hook_field_formatter_info().
  */
-function download_file_field_formatter_info() {
-  return array(
+function download_file_field_formatter_info() {  
+  $formatters = array(
     'direct_download' => array(
       'label'         => t('Direct download file'),
-      'field types'   => array('file'),
+      'field types'   => array('file', 'image'),
       'description'   => t('Displays a link to direct download the file.')
     ),
     'direct_download_icon' => array(
       'label'         => t('Direct download file with the type icon'),
-      'field types'   => array('file'),
+      'field types'   => array('file', 'image'),
       'description'   => t('Displays a link to direct download the file with the type icon.')
     ),
     'direct_download_accessible' => array(
       'label'         => t('Direct download file accessible'),
-      'field types'   => array('file'),
+      'field types'   => array('file', 'image'),
       'description'   => t('Displays a link accessible to direct download the file.')
     ),
     'direct_download_accessible_icon' => array(
       'label'         => t('Direct download file accessible with the type icon'),
-      'field types'   => array('file'),
+      'field types'   => array('file', 'image'),
       'description'   => t('Displays a link accessible to direct download the file with the type icon.')
-    )
+    )/*,
+    'direct_download_thumbnail_image' => array(
+      'label'       => t('Direct download with thumbnail image'),
+      'field types' => array('image'),
+      'description' => t('Displays a link with a thumbnail to direct download the image.'),
+      'settings'    => array('image_style' => '', 'image_link' => ''),
+    )*/
   );
+
+  return $formatters;
 }
 
 /**

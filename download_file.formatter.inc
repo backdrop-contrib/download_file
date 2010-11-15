@@ -103,12 +103,18 @@ function theme_download_file_direct_download_item($variables) {
 
   $url  = download_file_path($file->fid);
 
-  // Use the description as the link text if available.
-  if (empty($file->description)) {
+  // Use the description or the title as the link text if available.
+  if (empty($file->description) && empty($file->title)) {
     $link_text = $file->filename;
   }
   else {
-    $link_text                      = $file->description;
+    if (!empty($file->description)) {
+      $link_text = $file->description;
+    }
+    else if (!empty($file->title)) {
+      $link_text = $file->title;
+    }
+    
     $options['attributes']['title'] = $file->filename;
   }
 
@@ -134,12 +140,18 @@ function theme_download_file_direct_download_icon_item($variables) {
   $url  = download_file_path($file->fid);
   $icon = theme('file_icon', array('file' => $file));
 
-  // Use the description as the link text if available.
-  if (empty($file->description)) {
+  // Use the description or the title as the link text if available.
+  if (empty($file->description) && empty($file->title)) {
     $link_text = $file->filename;
   }
   else {
-    $link_text                      = $file->description;
+    if (!empty($file->description)) {
+      $link_text = $file->description;
+    }
+    else if (!empty($file->title)) {
+      $link_text = $file->title;
+    }
+    
     $options['attributes']['title'] = $file->filename;
   }
 
@@ -166,12 +178,18 @@ function theme_download_file_direct_download_item_accessible($variables) {
   $accessibility   = theme('download_file_detail_accessible', array('file' => $file));
   $options['html'] = TRUE;
 
-  // Use the description as the link text if available.
-  if (empty($file->description)) {
+  // Use the description or the title as the link text if available.
+  if (empty($file->description) && empty($file->title)) {
     $link_text = $file->filename;
   }
   else {
-    $link_text                      = $file->description;
+    if (!empty($file->description)) {
+      $link_text = $file->description;
+    }
+    else if (!empty($file->title)) {
+      $link_text = $file->title;
+    }
+    
     $options['attributes']['title'] = $file->filename;
   }
 
@@ -199,12 +217,18 @@ function theme_download_file_direct_download_icon_item_accessible($variables) {
   $accessibility   = theme('download_file_detail_accessible', array('file' => $file));
   $options['html'] = TRUE;
 
-  // Use the description as the link text if available.
-  if (empty($file->description)) {
+  // Use the description or the title as the link text if available.
+  if (empty($file->description) && empty($file->title)) {
     $link_text = $file->filename;
   }
   else {
-    $link_text                      = $file->description;
+    if (!empty($file->description)) {
+      $link_text = $file->description;
+    }
+    else if (!empty($file->title)) {
+      $link_text = $file->title;
+    }
+    
     $options['attributes']['title'] = $file->filename;
   }
 
@@ -225,8 +249,9 @@ function theme_download_file_detail_accessible($variables) {
   $extension = theme('download_file_extension_accessible', 
                     array('extension' => download_file_format_extension($file)));
   $file_size = theme('download_file_bytes_accessible', array('filesize' => $file->filesize));
+  $format = variable_get('download_file_accessible_format', '(format !extension / !file_size)');
 
-  return '<span class="detail">' . t('(format !extension / !file_size)', array('!extension' => $extension, '!file_size' => $file_size)). '</span>';
+  return '<span class="detail">' . t($format, array('!extension' => $extension, '!file_size' => $file_size)). '</span>';
 }
 
 /**
