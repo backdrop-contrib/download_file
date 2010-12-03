@@ -86,7 +86,7 @@ function theme_download_file_formatter_direct_download_accessible_icon($variable
 }
 
 /**
- * Theme function for the 'direct_download' single file formatter.
+ * Theme function for the 'direct_download' multiple file formatter.
  *
  * @param $file
  *   File to format.
@@ -101,7 +101,8 @@ function theme_download_file_direct_download_item($variables) {
     return '';
   }
 
-  $url  = download_file_path($file->fid);
+  $url     = download_file_path($file->fid);
+  $options = array();
 
   // Use the description or the title as the link text if available.
   if (empty($file->description) && empty($file->title)) {
@@ -118,11 +119,11 @@ function theme_download_file_direct_download_item($variables) {
     $options['attributes']['title'] = $file->filename;
   }
 
-  return '<div class="download-file clear-block">' . l($link_text, $url) . '</div>';
+  return '<div class="download-file clear-block">' . l($link_text, $url, $options) . '</div>';
 }
 
 /**
- * Theme function for the 'direct_download_icon' single file formatter.
+ * Theme function for the 'direct_download_icon' multiple file formatter.
  *
  * @param $file
  *   File to format.
@@ -137,8 +138,9 @@ function theme_download_file_direct_download_icon_item($variables) {
     return '';
   }
 
-  $url  = download_file_path($file->fid);
-  $icon = theme('file_icon', array('file' => $file));
+  $url     = download_file_path($file->fid);
+  $icon    = theme('file_icon', array('file' => $file));
+  $options = array();
 
   // Use the description or the title as the link text if available.
   if (empty($file->description) && empty($file->title)) {
@@ -155,11 +157,11 @@ function theme_download_file_direct_download_icon_item($variables) {
     $options['attributes']['title'] = $file->filename;
   }
 
-  return '<div class="download-file clear-block">' . $icon . l($link_text, $url) . '</div>';
+  return '<div class="download-file clear-block">' . $icon . l($link_text, $url, $options) . '</div>';
 }
 
 /**
- * Theme function for the 'direct_download_accessible' single file formatter.
+ * Theme function for the 'direct_download_accessible' multiple file formatter.
  *
  * @param $file
  *   File to format.
@@ -197,7 +199,7 @@ function theme_download_file_direct_download_item_accessible($variables) {
 }
 
 /**
- * Theme function for the 'direct_download_accessible_icon' single file formatter.
+ * Theme function for the 'direct_download_accessible_icon' multiple file formatter.
  *
  * @param $file
  *   File to format.
