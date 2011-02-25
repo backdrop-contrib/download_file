@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * Theming function for displaying the link to direct download the file.
