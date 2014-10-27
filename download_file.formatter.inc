@@ -1,4 +1,5 @@
 <?php
+// $Id: download_file.formatter.inc,v 1.1.6.4 2010/12/03 12:00:25 xmattx Exp $
 
 /**
  * Theming function for displaying the link to direct download the file.
@@ -84,6 +85,29 @@ function theme_download_file_formatter_direct_download_accessible_icon($variable
   return ($output) ? '<ul class="download-file">' . $output . '</ul>' : $output;
 }
 
+/**
+ * Theming function for displaying the image link to direct download the file with the type image.
+ *
+ * @param $element
+ *   Element(s) to format.
+ * @return
+ *   A string containing the HTML ouput.
+ */
+
+
+
+function theme_download_file_formatter_direct_download_thumbnail_image($variables) {
+  $output = '';
+//die('hhh');
+  foreach ($variables['items'] as $delta => $item) {
+    if (!empty($item)) {
+      $output .= theme('download_file_direct_download_thumbnail_image', 
+                       array('file' => (object) $item));
+    }
+  }
+
+  return $output;
+}
 /**
  * Theme function for the 'direct_download' multiple file formatter.
  *
@@ -234,6 +258,33 @@ function theme_download_file_direct_download_icon_item_accessible($variables) {
   }
 
   return '<li>' . $icon . l($link_text . ' ' . $accessibility, $url, $options) . '</li>';
+}
+/**
+ * Theme function for the 'direct_download__thumbnail_image' multiple file formatter.
+ *
+ * @param $file
+ *   File to format.
+ * @return
+ *   A string containing the HTML ouput.
+ */
+function theme_download_file_direct_download_thumbnail_image($variables) {
+  $file = $variables['file'];
+  
+  // Views may call this function with a NULL value, return an empty string.
+  if (empty($file->fid)) {
+    return '';
+  }
+  
+  $image_url       = $variables['file']->uri;
+  $image_alt       = $variables['file']->alt;
+  $image_title     = $variables['file']->title;
+  $style           = 'thumbnail';
+  $image_path      = image_style_url($style, $image_url);
+  $url             = download_file_path($file->fid);
+  $image           = "<img src='$image_path' alt='$image_alt' title='$image_title' />";
+  $options['html'] = TRUE;
+  
+  return '<div class="download-file clear-block">' . l($image, $url, $options) . '</div>';
 }
 
 /**
