@@ -209,7 +209,7 @@ function download_file_field_formatter_info() {
       'label'         => t('Direct download file accessible with the type icon'),
       'field types'   => array('file', 'image'),
       'description'   => t('Displays a link accessible to direct download the file with the type icon.')
-    ), // @todo Thumbnail formatter,
+    ),
     'direct_download_thumbnail_image' => array(
       'label'       => t('Direct download with thumbnail image'),
       'field types' => array('image'),

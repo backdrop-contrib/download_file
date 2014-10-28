@@ -86,19 +86,15 @@ function theme_download_file_formatter_direct_download_accessible_icon($variable
 }
 
 /**
- * Theming function for displaying the image link to direct download the file with the type image.
+ * Theming function for link with a thumbnail to direct download the image.
  *
  * @param $element
  *   Element(s) to format.
  * @return
  *   A string containing the HTML ouput.
  */
-
-
-
 function theme_download_file_formatter_direct_download_thumbnail_image($variables) {
   $output = '';
-//die('hhh');
   foreach ($variables['items'] as $delta => $item) {
     if (!empty($item)) {
       $output .= theme('download_file_direct_download_thumbnail_image', 
@@ -108,6 +104,7 @@ function theme_download_file_formatter_direct_download_thumbnail_image($variable
 
   return $output;
 }
+
 /**
  * Theme function for the 'direct_download' multiple file formatter.
  *
