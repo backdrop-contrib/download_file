@@ -156,6 +156,11 @@ function download_file_direct_download($fid) {
     return drupal_access_denied();
   }
 
+  // Access denied for private files.
+  if(strstr($file->uri,'private')){
+    return drupal_access_denied();
+  }
+
   if (count($headers)) {
     file_transfer($file->uri, $headers);
   }
