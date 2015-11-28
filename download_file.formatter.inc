@@ -132,7 +132,7 @@ function theme_download_file_direct_download_item($variables) {
     if (!empty($file->description)) {
       $link_text = $file->description;
     }
-    else if (!empty($file->title)) {
+    elseif (!empty($file->title)) {
       $link_text = $file->title;
     }
     
@@ -170,7 +170,7 @@ function theme_download_file_direct_download_icon_item($variables) {
     if (!empty($file->description)) {
       $link_text = $file->description;
     }
-    else if (!empty($file->title)) {
+    elseif (!empty($file->title)) {
       $link_text = $file->title;
     }
     
@@ -208,7 +208,7 @@ function theme_download_file_direct_download_item_accessible($variables) {
     if (!empty($file->description)) {
       $link_text = $file->description;
     }
-    else if (!empty($file->title)) {
+    elseif (!empty($file->title)) {
       $link_text = $file->title;
     }
     
@@ -247,7 +247,7 @@ function theme_download_file_direct_download_icon_item_accessible($variables) {
     if (!empty($file->description)) {
       $link_text = $file->description;
     }
-    else if (!empty($file->title)) {
+    elseif (!empty($file->title)) {
       $link_text = $file->title;
     }
     
@@ -300,7 +300,7 @@ function theme_download_file_detail_accessible($variables) {
   $file_size = theme('download_file_bytes_accessible', array('filesize' => $file->filesize));
   $format = variable_get('download_file_accessible_format', '(format !extension / !file_size)');
 
-  return '<span class="detail">' . t($format, array('!extension' => $extension, '!file_size' => $file_size)). '</span>';
+  return '<span class="detail">' . t($format, array('!extension' => $extension, '!file_size' => $file_size)) . '</span>';
 }
 
 /**
