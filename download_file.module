@@ -45,11 +45,12 @@ function download_file_permission() {
  * Implementation of hook_menu().
  */
 function download_file_menu() {
-  $items['download/file/fid/%'] = array(
+  $items['download/file/fid/%file'] = array(
     'title' => 'Download file',
     'page callback' => 'download_file_direct_download',
     'page arguments' => array(3),
-    'access arguments' => array('access direct download file')
+    'access callback' => 'download_file_access',
+    'access arguments' => array(3)
   );
   $items['admin/config/media/download-file'] = array(
     'title' => 'Download file',
@@ -62,6 +63,16 @@ function download_file_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Access callback for file download route.
+ *
+ * @param stdClass $file
+ * @return bool
+ */
+function download_file_access(stdClass $file) {
+  return user_access('access direct download file') && !empty($file->status);
 }
 
 /**
@@ -129,18 +140,16 @@ function download_file_theme() {
 /**
  * Page who forces the download of the file by changing the header.
  *
- * @param $fid
- *   The filefield identifier.
+ * @param stdClass $file
  */
-function download_file_direct_download($fid) {
-  $fid = intval($fid);
-  $file = file_load($fid);
+function download_file_direct_download(stdClass $file) {
+  $headers = file_download_headers($file->uri);
 
-  if (empty($fid) || empty($file) || !$file->status) {
-    return drupal_access_denied();
+  if (!$headers) {
+    return MENU_ACCESS_DENIED;
   }
 
-  $headers = array(
+  $default_headers = array(
     'Content-Type' => 'force-download',
     'Content-Disposition' => 'attachment; filename="' . $file->filename . '"',
     'Content-Length' => $file->filesize,
@@ -151,19 +160,8 @@ function download_file_direct_download($fid) {
     'Accept-Ranges' => 'bytes'
   );
 
-  // Let other modules provide headers and controls access to the file.
-  if (in_array(-1, $headers)) {
-    return drupal_access_denied();
-  }
-
-  // Access denied for private files.
-  if (strstr($file->uri, 'private')) {
-    return drupal_access_denied();
-  }
-
-  if (count($headers)) {
-    file_transfer($file->uri, $headers);
-  }
+  $headers = array_merge($default_headers, $headers);
+  file_transfer($file->uri, $headers);
 }
 
 /**
