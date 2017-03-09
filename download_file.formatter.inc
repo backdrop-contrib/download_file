@@ -1,13 +1,10 @@
 <?php
-// $Id: download_file.formatter.inc,v 1.1.6.4 2010/12/03 12:00:25 xmattx Exp $
 
 /**
  * Theming function for displaying the link to direct download the file.
  *
- * @param $element
- *   Element(s) to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML ouput.
  */
 function theme_download_file_formatter_direct_download($variables) {
   $output = '';
@@ -25,10 +22,8 @@ function theme_download_file_formatter_direct_download($variables) {
 /**
  * Theming function for displaying the link to direct download the file with the type icon.
  *
- * @param $element
- *   Element(s) to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML ouput.
  */
 function theme_download_file_formatter_direct_download_icon($variables) {
   $output = '';
@@ -46,10 +41,8 @@ function theme_download_file_formatter_direct_download_icon($variables) {
 /**
  * Theming function for displaying the link accessible to direct download the file.
  *
- * @param $element
- *   Element(s) to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML ouput.
  */
 function theme_download_file_formatter_direct_download_accessible($variables) {
   $output = '';
@@ -61,16 +54,14 @@ function theme_download_file_formatter_direct_download_accessible($variables) {
     }
   }
 
-  return ($output) ? '<ul class="download-file">' . $output . '</ul>' : $output;
+  return $output ? '<ul class="download-file">' . $output . '</ul>' : $output;
 }
 
 /**
  * Theming function for displaying the link accessible to direct download the file with the type icon.
  *
- * @param $element
- *   Element(s) to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML ouput.
  */
 function theme_download_file_formatter_direct_download_accessible_icon($variables) {
   $output = '';
@@ -82,16 +73,14 @@ function theme_download_file_formatter_direct_download_accessible_icon($variable
     }
   }
 
-  return ($output) ? '<ul class="download-file">' . $output . '</ul>' : $output;
+  return $output ? '<ul class="download-file">' . $output . '</ul>' : $output;
 }
 
 /**
  * Theming function for link with a thumbnail to direct download the image.
  *
- * @param $element
- *   Element(s) to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_formatter_direct_download_thumbnail_image($variables) {
   $output = '';
@@ -108,10 +97,8 @@ function theme_download_file_formatter_direct_download_thumbnail_image($variable
 /**
  * Theme function for the 'direct_download' multiple file formatter.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_direct_download_item($variables) {
   $file = $variables['file'];
@@ -145,10 +132,8 @@ function theme_download_file_direct_download_item($variables) {
 /**
  * Theme function for the 'direct_download_icon' multiple file formatter.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_direct_download_icon_item($variables) {
   $file = $variables['file'];
@@ -183,10 +168,8 @@ function theme_download_file_direct_download_icon_item($variables) {
 /**
  * Theme function for the 'direct_download_accessible' multiple file formatter.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_direct_download_item_accessible($variables) {
   $file = $variables['file'];
@@ -221,10 +204,8 @@ function theme_download_file_direct_download_item_accessible($variables) {
 /**
  * Theme function for the 'direct_download_accessible_icon' multiple file formatter.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_direct_download_icon_item_accessible($variables) {
   $file = $variables['file'];
@@ -256,13 +237,12 @@ function theme_download_file_direct_download_icon_item_accessible($variables) {
 
   return '<li>' . $icon . l($link_text . ' ' . $accessibility, $url, $options) . '</li>';
 }
+
 /**
  * Theme function for the 'direct_download__thumbnail_image' multiple file formatter.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_direct_download_thumbnail_image($variables) {
   $file = $variables['file'];
@@ -287,10 +267,8 @@ function theme_download_file_direct_download_thumbnail_image($variables) {
 /**
  * Theme function for the link accessible.
  *
- * @param $file
- *   File to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_detail_accessible($variables) {
   $file = $variables['file'];
@@ -306,10 +284,8 @@ function theme_download_file_detail_accessible($variables) {
 /**
  * Theme function for the extension accessible.
  *
- * @param $extension
- *   File extension to format.
- * @return
- *   A string containing the HTML ouput.
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_extension_accessible($variables) {
   $extension = $variables['extension'];
@@ -323,11 +299,9 @@ function theme_download_file_extension_accessible($variables) {
 
 /**
  * Theme function for the size format accessible.
- *
- * @param $filesize
- *   File size to format.
- * @return
- *   A string containing the HTML ouput.
+ * @todo Replace with @see format_size() function?
+ * @param $variables
+ * @return string A string containing the HTML output.
  */
 function theme_download_file_bytes_accessible($variables) {
   $filesize = $variables['filesize'];

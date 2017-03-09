@@ -1,5 +1,4 @@
 <?php
-// $Id: download_file.module,v 1.1.6.5 2010/12/03 12:00:25 xmattx Exp $
 
 /**
  * @file
@@ -23,7 +22,7 @@ function download_file_help($path, $arg) {
       return $output;
 
     case 'admin/settings/download-file':
-      return '<p>' . t('The fownload file module to direct download files or images. Use the setting below to customize the format of the link accessible.') . '</p>';
+      return '<p>' . t('The download file module to direct download files or images. Use the setting below to customize the format of the link accessible.') . '</p>';
   }
 }
 
@@ -141,6 +140,7 @@ function download_file_theme() {
  * Page who forces the download of the file by changing the header.
  *
  * @param stdClass $file
+ * @return int|null
  */
 function download_file_direct_download(stdClass $file) {
   $headers = file_download_headers($file->uri);
@@ -168,9 +168,8 @@ function download_file_direct_download(stdClass $file) {
  * Get the URL to download file.
  *
  * @param $fid
- *   The filefield identifier.
- * @return
- *   An string containing the URL to direct download file.
+ *   The file object ID.
+ * @return string An string containing the URL to direct download file.
  */
 function download_file_url($fid) {
   return url('download/file/fid/' . $fid);
@@ -181,8 +180,7 @@ function download_file_url($fid) {
  *
  * @param $fid
  *   The filefield identifier.
- * @return
- *   An string containing the path to direct download file.
+ * @return string An string containing the path to direct download file.
  */
 function download_file_path($fid) {
   return 'download/file/fid/' . $fid;
@@ -278,7 +276,7 @@ function download_file_field_formatter_view($entity_type, $entity, $field, $inst
  *   File size in bytes.
  * @param $precision
  *   The precision after the decimal.
- * @return
+ * @return array
  *   An array containing the formatted size and the unit.
  */
 function download_file_format_bytes($bytes, $precision) {
@@ -294,7 +292,7 @@ function download_file_format_bytes($bytes, $precision) {
  *
  * @param $file
  *   The file.
- * @return
+ * @return array|string
  *   An array containing the formatted acronym of file extension.
  */
 function download_file_format_extension($file) {
