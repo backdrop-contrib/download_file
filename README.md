@@ -1,6 +1,9 @@
 Download File
 =============
 
+(NOTE: After porting this module, it is still not clear to us if there is any
+functionality not already provided by core). 
+
 DownloadFile is a module to direct download files or images.
 
 To submit bug reports and feature suggestions, or to track changes:
