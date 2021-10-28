@@ -1,5 +1,5 @@
-
--- SUMMARY --
+Download File
+=============
 
 DownloadFile is a module to direct download files or images.
 
@@ -9,11 +9,13 @@ For a full description of the module, visit the project page:
 To submit bug reports and feature suggestions, or to track changes:
   http://drupal.org/project/issues/download_file
 
--- REQUIREMENTS --
+REQUIREMENTS
+------------
 
  * File core module
 
--- INSTALLATION --
+INSTALLATION
+------------
   
 1) Copy the download_file folder to the modules folder in your installation.
 
@@ -52,12 +54,13 @@ through the Views UI.
 
 4) Click on "Save" button and see the display in the preview.
 
--- CONTACT --
+CREDITS
+-------
 
-Current maintainer:
+Current maintainer of Drupal module:
 * Matthieu Moratille (xMATTx) - http://drupal.org/user/394628
 
-This project has been sponsored by:
+Prior work on Drupal version supported by:
 * CORE-TECHS
   An innovative company based in Paris whose activities are structured around
   the software production, service delivery and use of open source technologies.
