@@ -3,18 +3,10 @@ Download File
 
 DownloadFile is a module to direct download files or images.
 
-For a full description of the module, visit the project page:
-  http://drupal.org/project/download_file
-
 To submit bug reports and feature suggestions, or to track changes:
-  http://drupal.org/project/issues/download_file
+  https://github.com/backdrop-contrib/download_file/issues
 
-REQUIREMENTS
-------------
-
- * File core module
-
-INSTALLATION
+Installation
 ------------
   
 1) Copy the download_file folder to the modules folder in your installation.
@@ -35,12 +27,10 @@ INSTALLATION
 6) Configure the format of the link accessible at Administration -> 
    Configuration -> Media -> Download file (/admin/config/media/download-file).
 
-
 Using with Views module
 -----------------------
 Similarly, you can use a formatter when displaying files or images attached to
-nodes using File or Image in a View (http://drupal.org/project/views)
-through the Views UI.
+nodes using File or Image in a View through the Views UI.
 
 1) Manage display at Administration -> Structure -> Views 
    (/admin/structure/views) and add a new view by clicking the "Add new view" 
@@ -54,14 +44,27 @@ through the Views UI.
 
 4) Click on "Save" button and see the display in the preview.
 
-CREDITS
+License
 -------
 
-Current maintainer of Drupal module:
+This project is GPL v2 software. See the LICENSE.txt file in this directory for
+complete text.
+
+Maintainer
+----------
+
+* Tim Erickson (stpaultim)
+
+Credits
+-------
+
+Ported to Backdrop CMS by
+* Tim Erickson (stpaultim) - https://simplo.site
+
+Maintainer of Drupal module:
 * Matthieu Moratille (xMATTx) - http://drupal.org/user/394628
 
 Prior work on Drupal version supported by:
-* CORE-TECHS
-  An innovative company based in Paris whose activities are structured around
-  the software production, service delivery and use of open source technologies.
+* CORE-TECHS - An innovative company based in Paris whose activities are structured around
+  the software production, service delivery and use of open source technologies. 
   Visit http://www.core-techs.fr for more information.
