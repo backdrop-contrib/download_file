@@ -1,34 +1,48 @@
 <?php
+/**
+ * @file
+ * Install, update and uninstall functions for the download_file module.
+ *
+ */
+
 
 /**
- * Implementation of hook_install().
+ * Implements hook_install().
  */
 function download_file_install() {
   // Add variable for the accessible format.
-  variable_set('download_file_accessible_format', '(format !extension / !file_size)');
-  
+  config_set('download_file.settings', 'download_file_accessible_format', '(format !extension / !file_size)');
+
   // Display the link to configure the format of the link accessible.
-  drupal_set_message(st('Configure the format of the link accessible on the <a href="@setting">setting page</a>.', array('@setting' => url('admin/config/media/download-file'))));
+  backdrop_set_message(st('Configure the format of the link accessible on the <a href="@setting">setting page</a>.', array('@setting' => url('admin/config/media/download-file'))));
+  // Dynamically generated variable data was detected on the following lines.
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function download_file_uninstall() {
   // Delete variable for the accessible format.
-  variable_del('download_file_accessible_format');
+  config_clear('download_file.settings', 'download_file_accessible_format');
+}
+
+// TODO The old hook_update_N functions cannot be applied to Backdrop.
+function download_file_update_7100() { }
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function download_file_update_last_removed() {
+  return 7100;
 }
 
 /**
- * First update for the 7.1 branch.
+ * Migrate download_file variables to config.
  */
-function download_file_update_7100() {
-  // Add variable for the accessible format.
-  variable_set('download_file_accessible_format', '(format !extension / !file_size)');
-  
-  // Clear all cache.
-  cache_clear_all();
-  
-  // Display the link to configure the format of the link accessible.
-  drupal_set_message(t('Configure the format of the link accessible on the <a href="@setting">setting page</a>.', array('@setting' => url('admin/config/media/download-file'))));
+function download_file_update_1000() {
+  $config = config('download_file.settings');
+  $config->set('download_file_accessible_format', update_variable_get('download_file_accessible_format', '(format !extension / !file_size)'));
+  $config->save();
+
+  update_variable_del('download_file_accessible_format');
 }

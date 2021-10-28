@@ -1,0 +1,4 @@
+{
+    "_config_name": "download_file.settings",
+    "download_file_accessible_format": "(format !extension / !file_size)"
+}
